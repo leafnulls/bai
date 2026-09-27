@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>WebCatX</title>
+	</head>
+    <style type="text/css">
+    	
+        
+        *{
+            padding: 0;
+            margin:0;
+            
+           /* border:1px solid red;*/
+        }
+        
+        body{
+          height:100vh;
+          overflow:hidden;  
+          display:flex;
+          justify-content:center;
+          align-items:center;
+          flex-direction: column;
+        }    
+        
+        .count{
+            display:flex;
+            margin-top:30px;
+        }    
+        
+        .bai{
+           margin:30px; 
+        }    
+        
+        .bai-b{
+            width:100px;
+            height:100px;
+            font-size:2.5em;
+            color:green;
+            border:none;
+            font-weight: 600;
+            border-radius:200px;
+            background:#f7b849;
+            outline:none;
+            box-shadow:inset 3px 3px 5px white,
+            inset -2px -2px 5px rgba(0,0,0,.5);
+            transition:0.2s ease-out;
+         }   
+        
+        
+        .tu img{
+            width:150px;
+            height:230px;
+            transition:0.2s ease-out;
+         }   
+        
+        
+        .tu{
+            position: relative;
+        }    
+        
+        .tu .tip{
+            position: absolute;
+            top:0;
+            left:50%;
+            transform: translateX(-50%);
+            animation:bow 1s forwards;
+            font-weight: 600;
+         }   
+         
+         
+         .count{
+             display: flex;
+             justify-content:center;
+          align-items:center;
+         }
+         
+         
+         .count .cj{
+             font-size:1.5em;
+             color:orange;
+             font-weight: 600;
+         }    
+         
+         .count .jishu{
+             margin-left:5px;
+             height: 100%;
+             line-height: 100%;
+             font-size:20px;
+             font-weight: 600;
+             display: flex;
+             transform:translateY(8%);
+          align-items:center;
+          transition:0.1s ease;
+          }   
+        
+          .yan {
+    margin-top: 30px;
+    font-size: 12px;
+    letter-spacing: 5px;
+    text-indent: 5px;
+    color: #cfc7bb;
+  }
+  
+  
+  .bai .bai-b:active{
+     transform: scale(0.9);
+ box-shadow:
+    inset 2px 2px 4px white,
+    inset -3px -3px 7px rgba(0,0,0,.65);
+  }
+  
+  
+  
+  
+  @keyframes bow {
+      0%{
+         transform:translate(-50%,0%) scale(1);
+         opacity: 1;
+      }
+      
+      100%{
+          transform:translate(-50%,-30px) scale(1.1); 
+          opacity: 0;
+      }
+   }   
+   
+   .dm{
+     position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: -1;
+   }
+   
+   
+   .dm .dan{
+     position: absolute;
+     font-weight: 800;
+     color:#E56621;
+     top:30px;
+     left:0;  
+     white-space:nowrap;
+     animation:mu 10s linear infinite forwards;
+     z-index: -1;
+   }    
+   
+   @keyframes mu {
+      0%{
+         transform:translateX(-100%);
+      }
+      
+      100%{
+          transform:translateX(100vw);
+      }
+   }   
+   
+   .inps {
+       margin-top:20px;
+    }   
+   
+   .inps input{
+       width:80vw;
+       font-weight: 600;
+       margin: auto;
+       outline-style: none ;
+       border: 1px solid #ccc;
+       padding: 7px 0px;
+       border-radius: 5px;
+       transition:1s all;
+       text-align:center;
+       font-size: 1.3em;
+    }   
+    
+    input:focus{
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)
+}
+
+        
+    </style>
+	<body>
+      
+        <div class="dm">
+        <!--	<div class="dan">前程似锦</div>-->
+        </div>
+    
+		<div class="tu">
+           <img src="kao.png"/>
+		   <!-- <div class="tip">成绩+1</div>-->
+		</div>
+        
+        <div class="count">
+        	<div class="cj">好感度:</div>
+            <div class="jishu">0</div>
+        </div>
+        
+        <div class="inps">
+        	<input type="text" placeholder="输入祝福语"/>
+        </div>
+        
+        <div class="bai">
+        	<button class="bai-b">摸</button>
+        </div>
+        
+      <!--  <div class="dan">前程似锦</div>-->
+        
+        <div class="yan">-高考加油-</div>
+        
+        <audio id="sound" preload="auto">
+           <source src = "key.mp3" type="audio/mpeg">></source>
+        </audio>
+	</body>
+  <script>
+   
+  const img = document.querySelector(".tu img")
+  const btn = document.querySelector(".bai .bai-b")
+  const tu = document.querySelector(".tu")
+  const jishu = document.querySelector(".count .jishu")
+  const inp = document.querySelector(".inps input")
+  let textp = ""
+  let count = 0
+  
+  const gao = [
+  "高考加油！",
+  "前程似锦",
+  "考的全会，蒙的全对",
+  "努力",
+  "金榜题名",
+  "旗开得胜",
+  "一举高中",
+  "超常发挥",
+  "稳如老狗",
+  "心态放平",
+  "你是最棒的",
+  "别慌，稳住",
+  "笔锋所至，心之所向",
+  "愿你合上笔盖的那一刻，有战士收刀入鞘的骄傲",
+  "星光不问赶路人",
+  "时光不负有心人",
+  "所有的努力都不会白费",
+  "乾坤未定，你我皆是黑马",
+  "拼一把，不负青春",
+  "这一战，为自己而战",
+  "考场上见真章",
+  "会的全做对，不会的全蒙对",
+  "蒙的都对，写的全拿分",
+  "祝你好运",
+  "冲鸭！",
+  "加油鸭！",
+  "高考必胜！",
+  "顶峰相见",
+  "少年的征途是星辰大海",
+  "未来可期"
+]
+ 
+  btn.onclick=dian
+  
+//  setInterval(_=dian,300)
+  
+  
+  function dian() {
+      
+      document.querySelector("#sound").play()
+      document.querySelector("#sound").currentTime = 0
+      
+      if (inp.value == ""){
+          textp = gao[Math.floor(Math.random()*gao.length)]
+      }else{
+          textp = inp.value
+       }       
+       
+       inp.value = ""
+      
+  	img.style.transform = "scale(1.2)"
+           setTimeout(_=>{
+               img.style.transform = "scale(0.9)"
+               setTimeout(_=>{
+               img.style.transform = "scale(1)"
+           },250);
+           },100);
+           
+      let tip = document.createElement("div")
+           tip.className = "tip"
+           tip.textContent = "好感度+1"
+           tu.appendChild(tip)
+           
+           setTimeout(()=>{
+               tip.remove()
+           },1000);
+           
+           count++
+           
+           count = Math.min(count,750)
+           
+           jishu.style.transform = "translateY(8%) scale(1.2)"
+           setTimeout(_=>{
+               jishu.style.transform = "translateY(8%) scale(0.9)"
+               
+              setTimeout(_=>{
+               jishu.style.transform = "translateY(8%) scale(1)"
+              },200);
+           },100);
+           
+           jishu.textContent = count+""
+         
+           let dan = document.createElement("div")
+           dan.className = "dan"
+           dan.textContent = textp
+           dan.style.top = Math.random()*20 +"%"
+           document.querySelector(".dm").appendChild(dan)
+           
+           setTimeout(_=>{
+               dan.remove()
+              },10000);
+  }
+  </script>
+</html>
